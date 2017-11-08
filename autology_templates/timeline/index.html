@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Development Log{% endblock %}
+
+{% block body %}
+        <h1>Days</h1>
+
+        <ul>
+            {% for entry in dates %}
+            <li><a href="{{entry.url | autology_url }}">{{entry.date.strftime('%Y-%m-%d')}}</a></li>
+            {% endfor %}
+        </ul>
+{% endblock %}

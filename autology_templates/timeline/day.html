@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Some Day format{% endblock %}
+
+{% block body %}
+{% for date, value in entries %}
+
+<h2>{{ date.strftime('%X') }}</h2>
+
+{{ value.content|markdown|safe }}
+
+{% endfor %}
+{% endblock %}

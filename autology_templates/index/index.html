@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Development Log{% endblock %}
+
+{% block body %}
+        <h1>Reports</h1>
+
+        <ul>
+            {% for report in reports %}
+            <li><a href="{{report.url}}">{{report.name}}</a></li>
+            {% endfor %}
+        </ul>
+{% endblock %}
