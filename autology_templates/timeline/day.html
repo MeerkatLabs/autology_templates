@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Some Day format{% endblock %}
+{% block subtitle %}{{ date.strftime('%x') }}{% endblock %}
 
 {% block body %}
 {% for date, value in entries %}

@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Default Title{% endblock %}</title>
+    <title>{% block title %}{{site.title}} - {%block subtitle%}Undefined{% endblock %}{% endblock %}</title>
+
+    {% for stylesheet in site.stylesheets %}
+    <link rel="stylesheet" href="{{stylesheet}}">
+    {% endfor %}
 </head>
 <body>
     {% block body %}
     {% endblock %}
 
-    <p>Generated:</p>
+    {% for javascript in site.javascript %}
+    <script src="{{javascript}}"></script>
+    {% endfor %}
 </body>
+
 </html>

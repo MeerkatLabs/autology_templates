@@ -1,12 +1,26 @@
 {% extends "base.html" %}
-{% block title %}Development Log{% endblock %}
+{% block subtitle %}Index{% endblock %}
+
 
 {% block body %}
-        <h1>Reports</h1>
+    <h1>Reports</h1>
 
-        <ul>
-            {% for report in reports %}
-            <li><a href="{{report.url}}">{{report.name}}</a></li>
-            {% endfor %}
-        </ul>
+    <ul>
+        {% for report in reports %}
+        <li><a href="{{report.url}}">{{report.name}}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h1>Stats</h1>
+
+    <ul>
+        <li>Execution Time: {{stats.execution_time}}</li>
+        <li>
+            Files Processed: {{stats.processed_files}} {{stats.processed_files/stats.num_days}} files/day
+            {{stats.processed_files/stats.execution_time}} files/sec
+        </li>
+        <li>Days Processed: {{stats.num_days}}</li>
+    </ul>
+
+    <p>Generated: {{stats.generated_date}}</p>
 {% endblock %}
