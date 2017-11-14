@@ -1,0 +1,6 @@
+# Name of template
+name: Base Autology Template
+
+# List of file globs for all of the files that need to be moved over directly to the output directory
+static_files:
+
