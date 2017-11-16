@@ -24,9 +24,7 @@ this project.
 ### CDN Files
 
 - [Bootstrap v3.3.7](https://getbootstrap.com/docs/3.3/)
-- [D3.js v4.10.2](https://github.com/d3/d3/tree/v4.10.2)
-- [Moment.js v2.18.1](https://github.com/moment/moment/tree/2.18.1)
+- [D3.js v3.5.17](https://github.com/d3/d3/tree/v3.5.17)
+- [Cal-Heatmap v3.3.10](https://github.com/wa0x6e/cal-heatmap/tree/3.3.10)
 
 ## Development Requirements
-
-

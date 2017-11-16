@@ -2,11 +2,67 @@
 {% block subtitle %}Timeline{% endblock %}
 
 {% block body %}
-        <h1>Days</h1>
 
-        <ul>
-            {% for entry in dates %}
-            <li><a href="{{entry.url | autology_url }}">{{entry.date.strftime('%Y-%m-%d')}}</a></li>
-            {% endfor %}
-        </ul>
+    <div class="container">
+
+        <h1>Timeline Index</h1>
+
+        <div class="col-md-12">
+            <h2>2017</h2>
+            <div id="cal-2017"></div>
+        </div>
+
+        <div class="col-md-12">
+            <h2>2016</h2>
+            <div id="cal-2016"></div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+
+{% endblock %}
+
+{% block extrascripts %}
+
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+<script type="text/javascript">
+    (function() {
+
+        var datesToUrls = { {%for entry in dates%}"{{ entry.date.timestamp()  | int }}": "{{entry.url | autology_url }}", {%endfor%} };
+        var data = { {% for entry in dates %}"{{ entry.date.timestamp() }}": {{entry.num_entries}} {% if not loop.last %},{% endif %}{% endfor %} };
+
+        var onClick = function(date, nb) {
+            var url = datesToUrls[String(date.getTime() / 1000)];
+            if (typeof url !== 'undefined') {
+                window.location = url;
+            }
+
+        };
+        var legend = {{legend}};
+
+        var buildInitializationObject = function(year) {
+            return {
+                cellSize: 14,
+                onClick: onClick,
+                itemSelector: '#cal-'+ year,
+                start: new Date(year, 0, 1),
+                data: data,
+                domain: 'month',
+                subdomain: 'day',
+                tooltip: true,
+                highlight: 'now',
+                legend: legend,
+                displayLegend: false
+            }
+        };
+
+        new CalHeatMap().init(buildInitializationObject(2017));
+        new CalHeatMap().init(buildInitializationObject(2016));
+
+    })();
+</script>
 {% endblock %}
