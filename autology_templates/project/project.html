@@ -2,5 +2,19 @@
 {% block subtitle %}{{ project.name }}{% endblock %}
 
 {% block body %}
-<h1>{{project.name}}</h1>
+
+    <div class="container">
+        <h1>{{project.name}}</h1>
+
+        {% if project.description %}<p>{{ project.description }}</p>{% endif %}
+
+        {% for value in project.log | reverse %}
+            <div class="col-md-12">
+                <h2>{{ value.metadata.time.strftime('%x %X') }} <small>{{ value.duration }}</small></h2>
+
+                {{ value.content|markdown|safe }}
+            </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}
