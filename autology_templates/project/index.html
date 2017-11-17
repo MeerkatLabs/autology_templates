@@ -2,26 +2,30 @@
 {% block subtitle %}Project Reporting{% endblock %}
 
 {% block body %}
-<h1>Projects</h1>
-<ul>
 
-    {% for organization in organizations %}
-    <li>{{organization.name}}</li>
-    <ul>
-        {% for project in organization.projects %}
-        <li><a href="{{project.url | autology_url }}">{{project.name}}</a> {{ project.duration }}</li>
-        {% endfor %}
-    </ul>
-    {% endfor %}
+    <div class="container">
+        <h1>Projects</h1>
+        <ul>
 
-    {% if orphaned_projects %}
-    <li>Orphaned Projects</li>
-    <ul>
-        {% for project in orphaned_projects %}
-        <li>{{project.name}}
+            {% for organization in organizations %}
+            <li>{{organization.name}}</li>
+            <ul>
+                {% for project in organization.projects %}
+                    <li><a href="{{project.url | autology_url }}">{{project.name}}</a> {{ project.duration }}</li>
+                {% endfor %}
+            </ul>
             {% endfor %}
-    </ul>
-    {% endif %}
 
-</ul>
+            {% if orphaned_projects %}
+            <li>Orphaned Projects</li>
+            <ul>
+                {% for project in orphaned_projects %}
+                    <li>{{project.name}}
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+        </ul>
+
+    </div>
 {% endblock %}
