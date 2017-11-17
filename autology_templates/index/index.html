@@ -3,24 +3,29 @@
 
 
 {% block body %}
-    <h1>Reports</h1>
+    <div class="container">
+        <h1>{{ site.title }} <small>{{ stats.generated_date.strftime('%Y-%m-%d') }}</small></h1>
 
-    <ul>
-        {% for report in reports %}
-        <li><a href="{{report.url}}">{{report.name}}</a></li>
-        {% endfor %}
-    </ul>
+        <h2>Reports</h2>
 
-    <h1>Stats</h1>
+        <ul>
+            {% for report in reports %}
+                <li><a href="{{report.url}}">{{report.name}}</a></li>
+            {% endfor %}
+        </ul>
 
-    <ul>
-        <li>Execution Time: {{stats.execution_time}}</li>
-        <li>
-            Files Processed: {{stats.processed_files}} {{stats.processed_files/stats.num_days}} files/day
-            {{stats.processed_files/stats.execution_time}} files/sec
-        </li>
-        <li>Days Processed: {{stats.num_days}}</li>
-    </ul>
+        <h2>Stats</h2>
 
-    <p>Generated: {{stats.generated_date}}</p>
+        <ul>
+            <li>Execution Time: {{stats.execution_time}}</li>
+            <li>
+                Files Processed: {{stats.processed_files}} {{ (stats.processed_files/stats.num_days) | round(2)}} files/day
+                {{ (stats.processed_files/stats.execution_time) | round(2)}} files/sec
+            </li>
+            <li>Days Processed: {{stats.num_days}}</li>
+        </ul>
+
+        <p><small>Generated: {{stats.generated_date}}</small></p>
+
+    </div>
 {% endblock %}
