@@ -1,6 +1,31 @@
 # Name of template
 name: Base Autology Template
+version: 0.0.2.dev
 
 # List of file globs for all of the files that need to be moved over directly to the output directory
 static_files:
 
+# Template definitions
+templates:
+  # Report key
+  timeline:
+    # Template name
+    day:
+      # Path to the template that will be rendered
+      template: timeline/day.html
+      # Output destination, will be generated using destination.format(**context)
+      destination: timeline/{date.year:04d}{date.month:02d}{date.day:02d}.html
+    index:
+      template: timeline/index.html
+      destination: timeline/index.html
+  project:
+    index:
+      template: project/index.html
+      destination: project/index.html
+    project:
+      template: project/project.html
+      destination: 'project/{project[id]}.html'
+  index:
+    index:
+      template: index/index.html
+      destination: index.html
