@@ -10,7 +10,7 @@
 
         <ul>
             {% for report in reports %}
-                <li><a href="{{report.url}}">{{report.name}}</a></li>
+                <li><a href="{{report.url | autology_url}}">{{report.name}}</a></li>
             {% endfor %}
         </ul>
 
@@ -19,7 +19,12 @@
         <ul>
             <li>Execution Time: {{stats.execution_time}}</li>
             <li>
-                Files Processed: {{stats.processed_files}} {{ (stats.processed_files/stats.num_days) | round(2)}} files/day
+                Files Processed: {{stats.processed_files}}
+                {% if stats.num_days > 0 %}
+                    {{ (stats.processed_files/stats.num_days) | round(2)}} files/day
+                {% else %}
+                    0 files/day
+                {% endif %}
                 {{ (stats.processed_files/stats.execution_time) | round(2)}} files/sec
             </li>
             <li>Days Processed: {{stats.num_days}}</li>
