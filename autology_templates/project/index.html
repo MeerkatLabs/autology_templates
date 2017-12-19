@@ -20,7 +20,11 @@
             <li>Orphaned Projects</li>
             <ul>
                 {% for project in orphaned_projects %}
-                    <li>{{project.name}}
+                <li>{% if project.name %}
+                        {{project.name}}
+                    {%else%}
+                        id: {{project.id}}
+                    {%endif %}</li>
                 {% endfor %}
             </ul>
             {% endif %}
