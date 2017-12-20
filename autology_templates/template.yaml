@@ -1,6 +1,6 @@
 # Name of template
 name: Base Autology Template
-version: 0.2.0
+version: 0.3.0-dev
 
 # List of file globs for all of the files that need to be moved over directly to the output directory
 static_files:
@@ -25,6 +25,13 @@ templates:
     project:
       template: project/project.html
       destination: 'project/{project[id]}.html'
+  simple:
+    index:
+      template: simple/index.html
+      destination: '{id}/index.html'
+    day:
+      template: simple/day.html
+      destination: '{id}/{date.year:04d}{date.month:02d}{date.day:02d}.html'
   index:
     index:
       template: index/index.html

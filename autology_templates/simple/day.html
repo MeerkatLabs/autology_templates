@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block subtitle %}{{ date.strftime('%x') }}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="col-md-12">
+            <h1>Daily Log</h1>
+        </div>
+
+        <div class="col-md-1">
+
+            <div style="position: relative; height: 25px; width: 10px"></div>
+
+            <div class="col-md-12">
+                <div id="currentDayChart"></div>
+            </div>
+        </div>
+
+        <div class="col-md-11">
+
+            {% for value in entries %}
+
+            <div class="col-md-12">
+                <h2>{{ value.metadata.time.strftime('%X') }}</h2>
+
+                {{ value.content|markdown|safe }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+
+{% endblock %}
+
+{% block extrascripts %}
+
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="http://cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+
+            var data = { {% for entry in entries %}"{{ entry.metadata.time.timestamp() }}": 1 {% if not loop.last %},{% endif %}{% endfor %} };
+
+            var legend = [1, 2, 3, 4];
+
+            new CalHeatMap().init({
+                cellSize: 14,
+                itemSelector: '#currentDayChart',
+                start: new Date({{ date.year }}, {{ date.month - 1 }}, {{ date.day }}),
+                data: data,
+                domain: 'day',
+                subdomain: 'hour',
+                tooltip: true,
+                highlight: 'now',
+                legend: legend,
+                displayLegend: false,
+                range: 1
+            });
+
+        })();
+    </script>
+{% endblock %}
