@@ -36,3 +36,8 @@ templates:
     index:
       template: index/index.html
       destination: index.html
+
+# Variables that can be defined in the template.  Should provide sane defaults, with the understanding that the
+# repository that will contain the copied templates will override them.
+variables:
+  title: Development Log
