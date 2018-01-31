@@ -32,6 +32,15 @@ templates:
     day:
       template: simple/day.html
       destination: '{id}/{date.year:04d}{date.month:02d}{date.day:02d}.html'
+  exercise:
+    index:
+      template: exercise/index.html
+      destination: '{id}/index.html'
+    day:
+      template: exercise/day.html
+      destination: '{id}/{date.year:04d}/{date.month:02d}/{date.day:02d}.html'
+    data_file:
+      destination: '{id}/{date.year:04d}/{date.month:02d}/{date.day:02d}/{file_name}'
   index:
     index:
       template: index/index.html

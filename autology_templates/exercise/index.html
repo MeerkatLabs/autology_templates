@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block subtitle %}Exercise{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1>Exercise Index</h1>
+
+        {% for year in range(max_year, min_year-1, -1) %}
+        <div class="col-md-12">
+            <h2>{{year}}</h2>
+            <div id="cal-{{year}}"></div>
+        </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+
+{% endblock %}
+
+{% block extrascripts %}
+
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+<script type="text/javascript">
+    (function() {
+
+        var datesToUrls = { {%for entry in dates%}"{{ entry.date.timestamp()  | int }}": "{{entry.url | autology_url }}", {%endfor%} };
+        var data = { {% for entry in dates %}"{{ entry.date.timestamp() }}": {{entry.num_entries}} {% if not loop.last %},{% endif %}{% endfor %} };
+
+        var onClick = function(date, nb) {
+            var url = datesToUrls[String(date.getTime() / 1000)];
+            if (typeof url !== 'undefined') {
+                window.location = url;
+            }
+
+        };
+        var legend = [];
+        var max_value = {{ max_entries }};
+        for (var i=1; i < 5; ++i) {
+            legend.push(Math.ceil(max_value / 4) * i);
+        }
+
+        var buildInitializationObject = function(year) {
+            return {
+                cellSize: 14,
+                onClick: onClick,
+                itemSelector: '#cal-'+ year,
+                start: new Date(year, 0, 1),
+                data: data,
+                domain: 'month',
+                subdomain: 'day',
+                tooltip: true,
+                highlight: 'now',
+                legend: legend,
+                displayLegend: false
+            }
+        };
+
+        {% for year in range(min_year, max_year+1) %}
+          new CalHeatMap().init(buildInitializationObject({{year}}));
+        {% endfor %}
+
+    })();
+</script>
+{% endblock %}
