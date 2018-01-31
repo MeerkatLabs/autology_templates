@@ -1,6 +1,6 @@
 # Name of template
 name: Base Autology Template
-version: 0.3.0-dev
+version: 0.3.0
 
 # List of file globs for all of the files that need to be moved over directly to the output directory
 static_files:
