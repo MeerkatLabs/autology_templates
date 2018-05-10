@@ -10,7 +10,7 @@
 
         <ul>
             {% for report in reports %}
-                <li><a href="{{report.url | autology_url}}">{{report.name}}</a></li>
+                <li><a href="{{ url(*report.path, **report.path_context) }}">{{report.name}}</a></li>
             {% endfor %}
         </ul>
 

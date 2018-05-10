@@ -11,7 +11,7 @@
             <li>{{organization.name}}</li>
             <ul>
                 {% for project in organization.projects %}
-                    <li><a href="{{project.url | autology_url }}">{{project.name}}</a> {{ project.duration }}</li>
+                    <li><a href="{{ url('project', 'project', project=project) }}">{{project.name}}</a> {{ project.duration }}</li>
                 {% endfor %}
             </ul>
             {% endfor %}

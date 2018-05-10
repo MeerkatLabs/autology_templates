@@ -29,7 +29,7 @@
                 <ul>
                     <li>{{ value.metadata.gpx_data.distance }} m</li>
                     <li>{{ value.metadata.gpx_data.time }}</li>
-                    <li><a href="{{ value.metadata.gpx_url | autology_url }}">GPX File</a></li>
+                    <li><a href="{{ url('exercise', 'data_file', file_name=value.metadata.gpx_file) }}">GPX File</a></li>
                 </ul>
                 {% endif %}
 

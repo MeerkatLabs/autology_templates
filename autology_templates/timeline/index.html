@@ -29,7 +29,7 @@
 <script type="text/javascript">
     (function() {
 
-        var datesToUrls = { {%for entry in dates%}"{{ entry.date.timestamp()  | int }}": "{{entry.url | autology_url }}", {%endfor%} };
+        var datesToUrls = { {%for entry in dates%}"{{ entry.date.timestamp()  | int }}": "{{ url('timeline', 'day', date=entry.date) }}", {%endfor%} };
         var data = { {% for entry in dates %}"{{ entry.date.timestamp() }}": {{entry.num_entries}} {% if not loop.last %},{% endif %}{% endfor %} };
 
         var onClick = function(date, nb) {
