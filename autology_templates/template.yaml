@@ -25,6 +25,9 @@ templates:
     project:
       template: project/project.html
       destination: 'project/{project[id]}.html'
+    project_pagination:
+      template: project/project.html
+      destination: 'project/{project[id]}-{page_number}.html'
   simple:
     index:
       template: simple/index.html
@@ -35,12 +38,12 @@ templates:
   exercise:
     index:
       template: exercise/index.html
-      destination: '{id}/index.html'
+      destination: 'exercise/index.html'
     day:
       template: exercise/day.html
-      destination: '{id}/{date.year:04d}/{date.month:02d}/{date.day:02d}.html'
+      destination: 'exercise/{date.year:04d}/{date.month:02d}/{date.day:02d}.html'
     data_file:
-      destination: '{id}/{date.year:04d}/{date.month:02d}/{date.day:02d}/{file_name}'
+      destination: 'exercise/{date.year:04d}/{date.month:02d}/{date.day:02d}/{file_name}'
   index:
     index:
       template: index/index.html
