@@ -18,12 +18,8 @@
 
         {% if project.description %}<p>{{ project.description }}</p>{% endif %}
 
-        {% for value in pagination.entries %}
-            <div class="col-md-12">
-                <h2>{{ value.metadata.time.strftime('%x %X') }} <small>{{ value.duration }}</small></h2>
-
-                {{ value.content|markdown|safe }}
-            </div>
+        {% for entry in pagination.entries %}
+            {% include "common/entry.html" %}
         {% endfor %}
 
         <div class="col-md-12">

@@ -52,4 +52,39 @@ templates:
 # Variables that can be defined in the template.  Should provide sane defaults, with the understanding that the
 # repository that will contain the copied templates will override them.
 variables:
+  # Main title for the log
   title: Development Log
+
+  # Convert the activity tags into emoji characters with title hovers
+  activities:
+    hockey:
+      character: '&#x1F3D2;'
+      title: Ice Hockey
+
+    exercise:
+      character: '&#x1F3c3;'
+      title: Exercise
+
+    sleeping:
+      character: '&#x1F6cc;'
+      title: Sleeping
+
+    television:
+      character: '&#x1F4fa;'
+      title: Television
+
+    movie:
+      character: '&#x1F3a5;'
+      title: Movie
+
+    project:
+      character: '&#x1F4c1;'
+      title: Project
+
+    journal:
+      character: '&#x1F4D3;'
+      title: Journal
+
+    unknown:
+      character: '&#x26D4;'
+      title: Unknown

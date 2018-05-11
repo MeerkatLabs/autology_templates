@@ -1,0 +1,11 @@
+{% macro render_activity_icon(activity_tag) %}
+
+    {% if activity_tag in template.activities %}
+        {% set activity_defn = template.activities[activity_tag] %}
+    {% else %}
+        {% set activity_defn = template.activities['unknown'] %}
+    {% endif %}
+
+    <span title="{{ activity_defn.title }}">{{ activity_defn.character|safe }}</span>
+
+{% endmacro %}

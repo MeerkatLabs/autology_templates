@@ -1,0 +1,13 @@
+{% import "common/activityicon.html" as activity_icon with context %}
+
+<div class="col-md-12">
+    <h2>{{ entry.metadata.time.strftime('%x %X') }} <small>{{ entry.duration }}</small></h2>
+
+    <p>
+    {% for activity in entry.metadata.activities %}
+        {{ activity_icon.render_activity_icon(activity) }}
+    {% endfor %}
+    </p>
+
+    {{ entry.content|markdown|safe }}
+</div>

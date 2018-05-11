@@ -20,13 +20,8 @@
 
         <div class="col-md-11">
 
-            {% for value in entries %}
-
-            <div class="col-md-12">
-                <h2>{{ value.metadata.time.strftime('%X') }}</h2>
-
-                {{ value.content|markdown|safe }}
-            </div>
+            {% for entry in entries %}
+                {% include "common/entry.html" %}
             {% endfor %}
         </div>
     </div>
