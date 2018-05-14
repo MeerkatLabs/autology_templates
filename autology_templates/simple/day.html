@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block subtitle %}{{ date.strftime('%x') }}{% endblock %}
+{% block subtitle %}{{ name }} - {{ date.strftime('%x') }}{% endblock %}
 
 {% block body %}
 
     <div class="container">
 
         <div class="col-md-12">
-            <h1>Daily Log</h1>
+            <h1>Daily {{ name }} Log</h1>
         </div>
 
         <div class="col-md-1">

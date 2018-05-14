@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block subtitle %}Timeline{% endblock %}
+{% block subtitle %}{{ name }}{% endblock %}
 
 {% block body %}
 
     <div class="container">
 
-        <h1>Timeline Index</h1>
+        <h1>{{ name }} Index</h1>
 
         {% for year in range(max_year, min_year-1, -1) %}
         <div class="col-md-12">

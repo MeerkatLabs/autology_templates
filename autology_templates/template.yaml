@@ -85,6 +85,14 @@ variables:
       character: '&#x1F4D3;'
       title: Journal
 
+    dining:
+      character: '&#x1F374;'
+      title: Dining
+
+    groceries:
+       character: '&#x1F969;'
+       title: Groceries
+
     unknown:
       character: '&#x26D4;'
       title: Unknown

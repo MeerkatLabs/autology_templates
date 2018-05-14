@@ -7,6 +7,8 @@
     {% for activity in entry.metadata.activities %}
         {{ activity_icon.render_activity_icon(activity) }}
     {% endfor %}
+
+        <span title="{{ entry.file }}">&#x1F4C4;</span>
     </p>
 
     {{ entry.content|markdown|safe }}
