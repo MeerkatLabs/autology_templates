@@ -14,7 +14,7 @@ templates:
       # Path to the template that will be rendered
       template: timeline/day.html
       # Output destination, will be generated using destination.format(**context)
-      destination: timeline/{date.year:04d}{date.month:02d}{date.day:02d}.html
+      destination: timeline/{report.date.year:04d}{report.date.month:02d}{report.date.day:02d}.html
     index:
       template: timeline/index.html
       destination: timeline/index.html
@@ -34,14 +34,14 @@ templates:
       destination: '{id}/index.html'
     day:
       template: simple/day.html
-      destination: '{id}/{date.year:04d}{date.month:02d}{date.day:02d}.html'
+      destination: '{id}/{report.date.year:04d}{report.date.month:02d}{report.date.day:02d}.html'
   exercise:
     index:
       template: exercise/index.html
       destination: 'exercise/index.html'
     day:
       template: exercise/day.html
-      destination: 'exercise/{date.year:04d}/{date.month:02d}/{date.day:02d}.html'
+      destination: 'exercise/{report.date.year:04d}/{report.date.month:02d}/{report.date.day:02d}.html'
     data_file:
       destination: 'exercise/{date.year:04d}/{date.month:02d}/{date.day:02d}/{file_name}'
   index:

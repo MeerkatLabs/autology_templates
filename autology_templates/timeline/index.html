@@ -7,6 +7,8 @@
 
         <h1>Timeline Index</h1>
 
+        <p><a href="{{ url('index', 'index') }}">Home</a></p>
+
         {% for year in range(max_year, min_year-1, -1) %}
         <div class="col-md-12">
             <h2>{{year}}</h2>
@@ -29,8 +31,8 @@
 <script type="text/javascript">
     (function() {
 
-        var datesToUrls = { {%for entry in dates%}"{{ entry.date.timestamp()  | int }}": "{{ url('timeline', 'day', date=entry.date) }}", {%endfor%} };
-        var data = { {% for entry in dates %}"{{ entry.date.timestamp() }}": {{entry.num_entries}} {% if not loop.last %},{% endif %}{% endfor %} };
+        var datesToUrls = { {%for report in reports %}"{{ report.date.timestamp()  | int }}": "{{ url('timeline', 'day', report=report) }}", {%endfor%} };
+        var data = { {% for report in reports %}"{{ report.date.timestamp() }}": {{report.entries | length}} {% if not loop.last %},{% endif %}{% endfor %} };
 
         var onClick = function(date, nb) {
             var url = datesToUrls[String(date.getTime() / 1000)];

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block subtitle %}{{ date.strftime('%x') }}{% endblock %}
+{% block subtitle %}{{ report.date.strftime('%x') }}{% endblock %}
 
 {% block body %}
 
@@ -20,9 +20,22 @@
 
         <div class="col-md-11">
 
-            {% for entry in entries %}
+            <p>
+                {% if report.prev %}
+                    <a href="{{ url('timeline', 'day', report=report.prev) }}">Prev</a>
+                {% endif %}
+
+                <a href="{{ url('timeline', 'index') }}">Index</a>
+
+                {%  if report.next %}
+                    <a href="{{ url('timeline', 'day', report=report.next) }}">Next</a>
+                {% endif %}
+            </p>
+
+            {% for entry in report.entries %}
                 {% include "common/entry.html" %}
             {% endfor %}
+
         </div>
     </div>
 {% endblock %}
@@ -39,14 +52,14 @@
     <script type="text/javascript">
         (function() {
 
-            var data = { {% for entry in entries %}"{{ entry.metadata.time.timestamp() }}": 1 {% if not loop.last %},{% endif %}{% endfor %} };
+            var data = { {% for entry in report.entries %}"{{ entry.metadata.time.timestamp() }}": 1 {% if not loop.last %},{% endif %}{% endfor %} };
 
             var legend = [1, 2, 3, 4];
 
             new CalHeatMap().init({
                 cellSize: 14,
                 itemSelector: '#currentDayChart',
-                start: new Date({{ date.year }}, {{ date.month - 1 }}, {{ date.day }}),
+                start: new Date({{ report.date.year }}, {{ report.date.month - 1 }}, {{ report.date.day }}),
                 data: data,
                 domain: 'day',
                 subdomain: 'hour',

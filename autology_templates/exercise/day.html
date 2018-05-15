@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block subtitle %}{{ date.strftime('%x') }}{% endblock %}
+{% block subtitle %}{{ report.date.strftime('%x') }}{% endblock %}
 
 {% block body %}
 
@@ -20,20 +20,32 @@
 
         <div class="col-md-11">
 
-            {% for value in entries %}
+            <p>
+                {% if report.prev %}
+                    <a href="{{ url('exercise', 'day', report=report.prev) }}">Prev</a>
+                {% endif %}
+
+                <a href="{{ url('exercise', 'index') }}">Index</a>
+
+                {%  if report.next %}
+                    <a href="{{ url('exercise', 'day', report=report.next) }}">Next</a>
+                {% endif %}
+            </p>
+
+            {% for entry in report.entries %}
 
             <div class="col-md-12">
-                <h2>{{ value.metadata.time.strftime('%X') }}</h2>
+                <h2>{{ entry.metadata.time.strftime('%X') }}</h2>
 
-                {%  if value.metadata.gpx_file is defined %}
+                {%  if entry.metadata.gpx_file is defined %}
                 <ul>
-                    <li>{{ value.metadata.gpx_data.distance }} m</li>
-                    <li>{{ value.metadata.gpx_data.time }}</li>
-                    <li><a href="{{ url('exercise', 'data_file', file_name=value.metadata.gpx_file, date=date) }}">GPX File</a></li>
+                    <li>{{ entry.metadata.gpx_data.distance }} m</li>
+                    <li>{{ entry.metadata.gpx_data.time }}</li>
+                    <li><a href="{{ url('exercise', 'data_file', file_name=entry.metadata.gpx_file, date=report.date) }}">GPX File</a></li>
                 </ul>
                 {% endif %}
 
-                {{ value.content|markdown|safe }}
+                {{ entry.content|markdown|safe }}
             </div>
             {% endfor %}
         </div>
@@ -52,14 +64,14 @@
     <script type="text/javascript">
         (function() {
 
-            var data = { {% for entry in entries %}"{{ entry.metadata.time.timestamp() }}": 1 {% if not loop.last %},{% endif %}{% endfor %} };
+            var data = { {% for entry in report.entries %}"{{ entry.metadata.time.timestamp() }}": 1 {% if not loop.last %},{% endif %}{% endfor %} };
 
             var legend = [1, 2, 3, 4];
 
             new CalHeatMap().init({
                 cellSize: 14,
                 itemSelector: '#currentDayChart',
-                start: new Date({{ date.year }}, {{ date.month - 1 }}, {{ date.day }}),
+                start: new Date({{ report.date.year }}, {{ report.date.month - 1 }}, {{ report.date.day }}),
                 data: data,
                 domain: 'day',
                 subdomain: 'hour',
