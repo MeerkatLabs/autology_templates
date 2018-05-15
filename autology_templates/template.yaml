@@ -44,6 +44,10 @@ templates:
       destination: 'exercise/{report.date.year:04d}/{report.date.month:02d}/{report.date.day:02d}.html'
     data_file:
       destination: 'exercise/{date.year:04d}/{date.month:02d}/{date.day:02d}/{file_name}'
+  logging:
+    index:
+      template: logging/index.html
+      destination: logging/index.html
   index:
     index:
       template: index/index.html

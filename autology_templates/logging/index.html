@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block subtitle %}Log Reporting{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Logs</h1>
+
+        {% for log_record in log_records %}
+
+            {% if log_record.levelno >= 40 %}
+                <div class="alert alert-danger">
+            {% elif log_record.levelno >= 30 %}
+                <div class="alert alert-warning">
+            {% elif log_record.levelno >= 20 %}
+                <div class="alert alert-info">
+            {% else %}
+                <div class="alert alert-light">
+            {% endif %}
+
+                <p>{{log_record.levelname}} - {{ log_record.getMessage() }}</p>
+
+                <hr>
+
+                <p>{{ log_record.pathname }} - {{ log_record.lineno }}</p>
+            </div>
+
+        {% endfor %}
+
+</div>
+{% endblock %}
