@@ -3,41 +3,49 @@
 
 {% block body %}
 
-    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('index', 'index') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('timeline', 'index') }}">Index</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Daily Log {{ report.date.strftime('%x') }}</li>
+            </ol>
+        </nav>
 
-        <div class="col-md-12">
-            <h1>Daily Log</h1>
-        </div>
-
-        <div class="col-md-1">
-
-            <div style="position: relative; height: 25px; width: 10px"></div>
-
-            <div class="col-md-12">
+        <div class="row">
+            <div class="col-12">
                 <div id="currentDayChart"></div>
             </div>
         </div>
 
-        <div class="col-md-11">
+        <div class="row p-2">
+            <div class="col-10">
 
-            <p>
-                {% if report.prev %}
-                    <a href="{{ url('timeline', 'day', report=report.prev) }}">Prev</a>
-                {% endif %}
+                <nav aria-label="Pagination">
+                    <ul class="pagination pagination-sm">
+                        {% if report.prev %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url('timeline', 'day', report=report.prev) }}">Prev</a>
+                        </li>
+                        {% endif %}
+                        {% if report.next %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url('timeline', 'day', report=report.next) }}">Next</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
 
-                <a href="{{ url('timeline', 'index') }}">Index</a>
-
-                {%  if report.next %}
-                    <a href="{{ url('timeline', 'day', report=report.next) }}">Next</a>
-                {% endif %}
-            </p>
-
-            {% for entry in report.entries %}
-                {% include "common/entry.html" %}
-            {% endfor %}
+            </div>
 
         </div>
-    </div>
+
+        {% for entry in report.entries %}
+
+            {% include "common/entry.html" %}
+
+        {% endfor %}
+
+
 {% endblock %}
 
 {% block extrahead %}
@@ -67,7 +75,9 @@
                 highlight: 'now',
                 legend: legend,
                 displayLegend: false,
-                range: 1
+                range: 1,
+                colLimit: 24,
+                domainLabelFormat: ""
             });
 
         })();

@@ -1,15 +1,23 @@
 {% import "common/activityicon.html" as activity_icon with context %}
 
-<div class="col-md-12">
-    <h2>{{ entry.metadata.time.strftime('%x %X') }} <small>{{ entry.duration }}</small></h2>
+<div class="row py-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">{{ entry.metadata.time.strftime('%X') }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ entry.duration }}</h6>
 
-    <p>
-    {% for activity in entry.metadata.activities %}
-        {{ activity_icon.render_activity_icon(activity) }}
-    {% endfor %}
+            {{ entry.content|markdown|safe }}
 
-        <span title="{{ entry.file }}">&#x1F4C4;</span>
-    </p>
+            </div>
+            <div class="card-footer text-muted">
+                {% for activity in entry.metadata.activities %}
+                    {{ activity_icon.render_activity_icon(activity) }}
+                {% endfor %}
 
-    {{ entry.content|markdown|safe }}
+                <span title="{{ entry.file }}">&#x1F4C4;</span>
+
+            </div>
+        </div>
+    </div>
 </div>

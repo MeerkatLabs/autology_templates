@@ -3,8 +3,7 @@
 
 
 {% block body %}
-    <div class="container">
-        <h1>{{ site.title }} <small>{{ stats.generated_date.strftime('%Y-%m-%d') }}</small></h1>
+        <h1>{{ template.title }}</h1>
 
         <h2>Reports</h2>
 
@@ -32,5 +31,4 @@
 
         <p><small>Generated: {{stats.generated_date}}</small></p>
 
-    </div>
 {% endblock %}
