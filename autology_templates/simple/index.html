@@ -5,9 +5,11 @@
 
     <div class="container">
 
-        <h1>{{ name }} Index</h1>
-
-        <p><a href="{{ url('index', 'index') }}">Home</a></p>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">{{ name }}</li>
+            </ol>
+        </nav>
 
         {% for year in range(max_year, min_year-1, -1) %}
         <div class="col-md-12">

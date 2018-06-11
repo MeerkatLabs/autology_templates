@@ -3,73 +3,37 @@
 
 {% block body %}
 
-    <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url('simple', 'index', id=id) }}">{{ name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Log {{ report.date.strftime('%x') }}</li>
+        </ol>
+    </nav>
 
-        <div class="col-md-12">
-            <h1>Daily {{ name }} Log</h1>
+    <div class="row p-2">
+        <div class="col-10">
+
+            <nav aria-label="Pagination">
+                <ul class="pagination pagination-sm">
+                    {% if report.prev %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url('simple', 'day', id=id, report=report.prev) }}">Prev</a>
+                        </li>
+                    {% endif %}
+                    {% if report.next %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url('simple', 'day', id=id, report=report.next) }}">Next</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+
         </div>
 
-        <div class="col-md-1">
-
-            <div style="position: relative; height: 25px; width: 10px"></div>
-
-            <div class="col-md-12">
-                <div id="currentDayChart"></div>
-            </div>
-        </div>
-
-        <div class="col-md-11">
-
-            <p>
-                {% if report.prev %}
-                    <a href="{{ url('simple', 'day', id=id, report=report.prev) }}">Prev</a>
-                {% endif %}
-
-                <a href="{{ url('simple', 'index', id=id) }}">Index</a>
-
-                {%  if report.next %}
-                    <a href="{{ url('simple', 'day', id=id, report=report.next) }}">Next</a>
-                {% endif %}
-            </p>
-
-
-            {% for entry in report.entries %}
-                {% include "common/entry.html" %}
-            {% endfor %}
-        </div>
     </div>
-{% endblock %}
 
-{% block extrahead %}
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
 
-{% endblock %}
-
-{% block extrascripts %}
-
-    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript" src="http://cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-
-            var data = { {% for entry in report.entries %}"{{ entry.metadata.time.timestamp() }}": 1 {% if not loop.last %},{% endif %}{% endfor %} };
-
-            var legend = [1, 2, 3, 4];
-
-            new CalHeatMap().init({
-                cellSize: 14,
-                itemSelector: '#currentDayChart',
-                start: new Date({{ report.date.year }}, {{ report.date.month - 1 }}, {{ report.date.day }}),
-                data: data,
-                domain: 'day',
-                subdomain: 'hour',
-                tooltip: true,
-                highlight: 'now',
-                legend: legend,
-                displayLegend: false,
-                range: 1
-            });
-
-        })();
-    </script>
+    {% for entry in report.entries %}
+        {% include "common/entry.html" %}
+    {% endfor %}
 {% endblock %}

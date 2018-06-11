@@ -5,9 +5,11 @@
 
     <div class="container">
 
-        <h1>Timeline Index</h1>
-
-        <p><a href="{{ url('index', 'index') }}">Home</a></p>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Timeline</li>
+            </ol>
+        </nav>
 
         {% for year in range(max_year, min_year-1, -1) %}
         <div class="col-md-12">
@@ -49,7 +51,7 @@
 
         var buildInitializationObject = function(year) {
             return {
-                cellSize: 14,
+                cellSize: 10,
                 onClick: onClick,
                 itemSelector: '#cal-'+ year,
                 start: new Date(year, 0, 1),

@@ -3,85 +3,50 @@
 
 {% block body %}
 
-    <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url('simple', 'index', id=id) }}">{{ name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Log {{ report.date.strftime('%x') }}</li>
+        </ol>
+    </nav>
 
-        <div class="col-md-12">
-            <h1>Daily Exercise Log</h1>
-        </div>
+    <div class="row p-2">
+        <div class="col-10">
 
-        <div class="col-md-1">
-
-            <div style="position: relative; height: 25px; width: 10px"></div>
-
-            <div class="col-md-12">
-                <div id="currentDayChart"></div>
-            </div>
-        </div>
-
-        <div class="col-md-11">
-
-            <p>
-                {% if report.prev %}
-                    <a href="{{ url('exercise', 'day', report=report.prev) }}">Prev</a>
-                {% endif %}
-
-                <a href="{{ url('exercise', 'index') }}">Index</a>
-
-                {%  if report.next %}
-                    <a href="{{ url('exercise', 'day', report=report.next) }}">Next</a>
-                {% endif %}
-            </p>
-
-            {% for entry in report.entries %}
-
-            <div class="col-md-12">
-                <h2>{{ entry.metadata.time.strftime('%X') }}</h2>
-
-                {%  if entry.metadata.gpx_file is defined %}
-                <ul>
-                    <li>{{ entry.metadata.gpx_data.distance }} m</li>
-                    <li>{{ entry.metadata.gpx_data.time }}</li>
-                    <li><a href="{{ url('exercise', 'data_file', file_name=entry.metadata.gpx_file, date=report.date) }}">GPX File</a></li>
+            <nav aria-label="Pagination">
+                <ul class="pagination pagination-sm">
+                    {% if report.prev %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url('timeline', 'day', report=report.prev) }}">Prev</a>
+                        </li>
+                    {% endif %}
+                    {% if report.next %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url('timeline', 'day', report=report.next) }}">Next</a>
+                        </li>
+                    {% endif %}
                 </ul>
-                {% endif %}
+            </nav>
 
-                {{ entry.content|markdown|safe }}
-            </div>
-            {% endfor %}
         </div>
+
     </div>
-{% endblock %}
 
-{% block extrahead %}
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+    {% for entry in report.entries %}
 
-{% endblock %}
+    <div class="col-md-12">
+        <h2>{{ entry.metadata.time.strftime('%X') }}</h2>
 
-{% block extrascripts %}
+        {%  if entry.metadata.gpx_file is defined %}
+        <ul>
+            <li>{{ entry.metadata.gpx_data.distance }} m</li>
+            <li>{{ entry.metadata.gpx_data.time }}</li>
+            <li><a href="{{ url('exercise', 'data_file', file_name=entry.metadata.gpx_file, date=report.date) }}">GPX File</a></li>
+        </ul>
+        {% endif %}
 
-    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript" src="http://cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
-    <script type="text/javascript">
-        (function() {
+        {{ entry.content|markdown|safe }}
+    </div>
+    {% endfor %}
 
-            var data = { {% for entry in report.entries %}"{{ entry.metadata.time.timestamp() }}": 1 {% if not loop.last %},{% endif %}{% endfor %} };
-
-            var legend = [1, 2, 3, 4];
-
-            new CalHeatMap().init({
-                cellSize: 14,
-                itemSelector: '#currentDayChart',
-                start: new Date({{ report.date.year }}, {{ report.date.month - 1 }}, {{ report.date.day }}),
-                data: data,
-                domain: 'day',
-                subdomain: 'hour',
-                tooltip: true,
-                highlight: 'now',
-                legend: legend,
-                displayLegend: false,
-                range: 1
-            });
-
-        })();
-    </script>
 {% endblock %}
